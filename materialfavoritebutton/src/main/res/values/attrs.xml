@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="MaterialFavoriteButton">
+    <attr name="mfb_animated" format="boolean" />
+    <attr name="mfb_padding" format="integer" />
+    <attr name="mfb_favorite_image" format="integer" />
+    <attr name="mfb_not_favorite_image" format="integer" />
+    <attr name="mfb_rotation_duration" format="integer" />
+    <attr name="mfb_rotation_angle" format="integer" />
+    <attr name="mfb_bounce_duration" format="integer" />
+    <attr name="mfb_color" format="enum">
+      <enum name="black" value="0" />
+      <enum name="white" value="1" />
+    </attr>
+    <attr name="mfb_type" format="enum">
+      <enum name="star" value="0" />
+      <enum name="heart" value="1" />
+    </attr>
+  </declare-styleable>
+</resources>
