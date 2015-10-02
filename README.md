@@ -16,8 +16,8 @@ Gradle
         }
    }
    dependencies {
-        compile 'com.github.ivbaranov:material-favorite-button:0.1.0'
-   }
+	        compile 'com.github.IvBaranov:MaterialFavoriteButton:0.1.0'
+	}
 ```
 
 
@@ -104,4 +104,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-[1]: https://raw.github.com/ivbaranov/material-favorite/master/images/demo.gif
+[1]: https://github.com/IvBaranov/MaterialFavoriteButton/blob/master/demo.gif
