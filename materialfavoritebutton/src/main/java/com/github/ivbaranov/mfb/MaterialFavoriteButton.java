@@ -265,9 +265,10 @@ public class MaterialFavoriteButton extends ImageView {
    * @param animated true to force animated change, false to force not animated one
    */
   public void setFavorite(boolean favorite, boolean animated) {
+    boolean orig = mAnimation;
     mAnimation = animated;
     setFavorite(favorite);
-    mAnimation = !animated;
+    mAnimation = orig;
   }
 
   /**
