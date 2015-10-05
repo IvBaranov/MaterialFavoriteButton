@@ -283,9 +283,10 @@ public class MaterialFavoriteButton extends ImageView {
    * @param animated true to force animated toggle, false to force not animated one
    */
   public void toggleFavorite(boolean animated) {
+    boolean orig = mAnimation;
     mAnimation = animated;
     setFavorite(!mFavorite);
-    mAnimation = !animated;
+    mAnimation = orig;
   }
 
   private void updateFavoriteButton(boolean animated) {
