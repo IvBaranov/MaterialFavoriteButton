@@ -9,15 +9,15 @@ Gradle
 -------------------------
 
 ```groovy
-  allprojects {
-        repositories { 
-            jcenter()
-            maven { url "https://jitpack.io" }
-        }
-   }
-   dependencies {
-	        compile 'com.github.IvBaranov:MaterialFavoriteButton:0.1.0'
-	}
+allprojects {
+    repositories { 
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+dependencies {
+    compile 'com.github.ivbaranov:MaterialFavoriteButton:0.1.0'
+}
 ```
 
 
