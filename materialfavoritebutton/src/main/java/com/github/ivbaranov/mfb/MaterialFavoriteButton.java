@@ -15,7 +15,8 @@ import android.widget.ImageView;
 public class MaterialFavoriteButton extends ImageView {
   private static final int DEFAULT_PADDING = 12;
   private static final boolean DEFAULT_FAVORITE = false;
-  private static final boolean DEFAULT_ANIMATION = true;
+  private static final boolean DEFAULT_ANIMATE_FAVORITE = true;
+  private static final boolean DEFAULT_ANIMATE_UNFAVORITE = false;
   private static final int DEFAULT_ROTATION_DURATION = 400;
   private static final int DEFAULT_ROTATION_ANGLE = 360;
   private static final int DEFAULT_BOUNCE_DURATION = 300;
@@ -38,7 +39,8 @@ public class MaterialFavoriteButton extends ImageView {
   private int mButtonSize;
   private int mPadding;
   private boolean mFavorite;
-  private boolean mAnimation;
+  private boolean mAnimateFavorite;
+  private boolean mAnimateUnfavorite;
   private int mFavoriteResource;
   private int mNotFavoriteResource;
   private int mRotationDuration;
@@ -130,7 +132,8 @@ public class MaterialFavoriteButton extends ImageView {
     mButtonSize = Utils.dpToPx(48, getResources());
     mPadding = Utils.dpToPx(DEFAULT_PADDING, getResources());
     mFavorite = DEFAULT_FAVORITE;
-    mAnimation = DEFAULT_ANIMATION;
+    mAnimateFavorite = DEFAULT_ANIMATE_FAVORITE;
+    mAnimateUnfavorite = DEFAULT_ANIMATE_UNFAVORITE;
     mFavoriteResource = FAVORITE_STAR_BLACK;
     mNotFavoriteResource = FAVORITE_STAR_BORDER_BLACK;
     mRotationDuration = DEFAULT_ROTATION_DURATION;
@@ -160,7 +163,11 @@ public class MaterialFavoriteButton extends ImageView {
     TypedArray attr = getTypedArray(context, attributeSet, R.styleable.MaterialFavoriteButton);
     if (attr != null) {
       try {
-        mAnimation = attr.getBoolean(R.styleable.MaterialFavoriteButton_mfb_animated, mAnimation);
+        mAnimateFavorite = attr.getBoolean(R.styleable.MaterialFavoriteButton_mfb_animate_favorite,
+            mAnimateFavorite);
+        mAnimateUnfavorite =
+            attr.getBoolean(R.styleable.MaterialFavoriteButton_mfb_animate_unfavorite,
+                mAnimateUnfavorite);
         mPadding = Utils.dpToPx(
             attr.getInt(R.styleable.MaterialFavoriteButton_mfb_padding, DEFAULT_PADDING),
             getResources());
@@ -253,7 +260,7 @@ public class MaterialFavoriteButton extends ImageView {
       if (mOnFavoriteChangeListener != null) {
         mOnFavoriteChangeListener.onFavoriteChanged(this, mFavorite);
       }
-      updateFavoriteButton(mAnimation);
+      updateFavoriteButton(favorite);
       mBroadcasting = false;
     }
   }
@@ -265,10 +272,17 @@ public class MaterialFavoriteButton extends ImageView {
    * @param animated true to force animated change, false to force not animated one
    */
   public void setFavorite(boolean favorite, boolean animated) {
-    boolean orig = mAnimation;
-    mAnimation = animated;
-    setFavorite(favorite);
-    mAnimation = orig;
+    if (favorite) {
+      boolean orig = mAnimateFavorite;
+      mAnimateFavorite = animated;
+      setFavorite(favorite);
+      mAnimateFavorite = orig;
+    } else {
+      boolean orig = mAnimateUnfavorite;
+      mAnimateUnfavorite = animated;
+      setFavorite(favorite);
+      mAnimateUnfavorite = orig;
+    }
   }
 
   /**
@@ -284,59 +298,90 @@ public class MaterialFavoriteButton extends ImageView {
    * @param animated true to force animated toggle, false to force not animated one
    */
   public void toggleFavorite(boolean animated) {
-    boolean orig = mAnimation;
-    mAnimation = animated;
-    setFavorite(!mFavorite);
-    mAnimation = orig;
+    if (!mFavorite) {
+      boolean orig = mAnimateFavorite;
+      mAnimateFavorite = animated;
+      setFavorite(!mFavorite);
+      mAnimateFavorite = orig;
+    } else {
+      boolean orig = mAnimateUnfavorite;
+      mAnimateUnfavorite = animated;
+      setFavorite(!mFavorite);
+      mAnimateUnfavorite = orig;
+    }
   }
 
-  private void updateFavoriteButton(boolean animated) {
-    if (animated && mFavorite) {
-      AnimatorSet animatorSet = new AnimatorSet();
-
-      ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(this, "rotation", 0f, mRotationAngle);
-      rotationAnim.setDuration(mRotationDuration);
-      rotationAnim.setInterpolator(ACCELERATE_INTERPOLATOR);
-
-      ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(this, "scaleX", 0.2f, 1f);
-      bounceAnimX.setDuration(mBounceDuration);
-      bounceAnimX.setInterpolator(OVERSHOOT_INTERPOLATOR);
-
-      ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(this, "scaleY", 0.2f, 1f);
-      bounceAnimY.setDuration(mBounceDuration);
-      bounceAnimY.setInterpolator(OVERSHOOT_INTERPOLATOR);
-      bounceAnimY.addListener(new AnimatorListenerAdapter() {
-        @Override public void onAnimationStart(Animator animation) {
-          if (mFavorite) {
-            setImageResource(mFavoriteResource);
-          } else {
-            setImageResource(mNotFavoriteResource);
-          }
-        }
-      });
-
-      animatorSet.play(rotationAnim);
-      animatorSet.play(bounceAnimX).with(bounceAnimY).after(rotationAnim);
-
-      animatorSet.addListener(new AnimatorListenerAdapter() {
-        @Override public void onAnimationEnd(Animator animation) {
-          if (mOnFavoriteAnimationEndListener != null) {
-            mOnFavoriteAnimationEndListener.onAnimationEnd(MaterialFavoriteButton.this, mFavorite);
-          }
-        }
-      });
-
-      animatorSet.start();
-    } else {
-      if (mFavorite) {
+  private void updateFavoriteButton(boolean favorite) {
+    if (favorite) {
+      if (mAnimateFavorite) {
+        animateButton(favorite);
+      } else {
         super.setImageResource(mFavoriteResource);
+        if (mOnFavoriteAnimationEndListener != null) {
+          mOnFavoriteAnimationEndListener.onAnimationEnd(this, mFavorite);
+        }
+      }
+    } else {
+      if (mAnimateUnfavorite) {
+        animateButton(favorite);
       } else {
         super.setImageResource(mNotFavoriteResource);
-      }
-      if (mOnFavoriteAnimationEndListener != null) {
-        mOnFavoriteAnimationEndListener.onAnimationEnd(this, mFavorite);
+        if (mOnFavoriteAnimationEndListener != null) {
+          mOnFavoriteAnimationEndListener.onAnimationEnd(this, mFavorite);
+        }
       }
     }
+  }
+
+  private void animateButton(boolean toFavorite) {
+    final int startAngle = 0;
+    int endAngle;
+    float startBounce;
+    float endBounce;
+    if (toFavorite) {
+      endAngle = mRotationAngle;
+      startBounce = 0.2f;
+      endBounce = 1.0f;
+    } else {
+      endAngle = -mRotationAngle;
+      startBounce = 1.3f;
+      endBounce = 1.0f;
+    }
+
+    AnimatorSet animatorSet = new AnimatorSet();
+    ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(this, "rotation", startAngle, endAngle);
+    rotationAnim.setDuration(mRotationDuration);
+    rotationAnim.setInterpolator(ACCELERATE_INTERPOLATOR);
+
+    ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(this, "scaleX", startBounce, endBounce);
+    bounceAnimX.setDuration(mBounceDuration);
+    bounceAnimX.setInterpolator(OVERSHOOT_INTERPOLATOR);
+
+    ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(this, "scaleY", startBounce, endBounce);
+    bounceAnimY.setDuration(mBounceDuration);
+    bounceAnimY.setInterpolator(OVERSHOOT_INTERPOLATOR);
+    bounceAnimY.addListener(new AnimatorListenerAdapter() {
+      @Override public void onAnimationStart(Animator animation) {
+        if (mFavorite) {
+          setImageResource(mFavoriteResource);
+        } else {
+          setImageResource(mNotFavoriteResource);
+        }
+      }
+    });
+
+    animatorSet.play(rotationAnim);
+    animatorSet.play(bounceAnimX).with(bounceAnimY).after(rotationAnim);
+
+    animatorSet.addListener(new AnimatorListenerAdapter() {
+      @Override public void onAnimationEnd(Animator animation) {
+        if (mOnFavoriteAnimationEndListener != null) {
+          mOnFavoriteAnimationEndListener.onAnimationEnd(MaterialFavoriteButton.this, mFavorite);
+        }
+      }
+    });
+
+    animatorSet.start();
   }
 
   /**
@@ -347,7 +392,8 @@ public class MaterialFavoriteButton extends ImageView {
 
     private int mPadding = DEFAULT_PADDING;
     private boolean mFavorite = DEFAULT_FAVORITE;
-    private boolean mAnimation = DEFAULT_ANIMATION;
+    private boolean mAnimateFavorite = DEFAULT_ANIMATE_FAVORITE;
+    private boolean mAnimateUnfavorite = DEFAULT_ANIMATE_UNFAVORITE;
     private int mFavoriteResource = FAVORITE_STAR_BLACK;
     private int mNotFavoriteResource = FAVORITE_STAR_BORDER_BLACK;
     private int mRotationDuration = DEFAULT_ROTATION_DURATION;
@@ -370,8 +416,13 @@ public class MaterialFavoriteButton extends ImageView {
       return this;
     }
 
-    public Builder animation(boolean animation) {
-      this.mAnimation = animation;
+    public Builder animateFavorite(boolean animation) {
+      this.mAnimateFavorite = animation;
+      return this;
+    }
+
+    public Builder animateUnfavorite(boolean animation) {
+      this.mAnimateUnfavorite = animation;
       return this;
     }
 
@@ -414,7 +465,8 @@ public class MaterialFavoriteButton extends ImageView {
       MaterialFavoriteButton materialFavoriteButton = new MaterialFavoriteButton(context);
       materialFavoriteButton.setPadding(mPadding);
       materialFavoriteButton.setFavorite(mFavorite, false);
-      materialFavoriteButton.setAnimation(mAnimation);
+      materialFavoriteButton.setAnimateFavorite(mAnimateFavorite);
+      materialFavoriteButton.setAnimateUnfavorite(mAnimateUnfavorite);
       materialFavoriteButton.setFavoriteResource(mFavoriteResource);
       materialFavoriteButton.setNotFavoriteResource(mNotFavoriteResource);
       materialFavoriteButton.setRotationDuration(mRotationDuration);
@@ -432,8 +484,12 @@ public class MaterialFavoriteButton extends ImageView {
     this.mPadding = padding;
   }
 
-  public void setAnimation(boolean animation) {
-    this.mAnimation = animation;
+  public void setAnimateFavorite(boolean animation) {
+    this.mAnimateFavorite = animation;
+  }
+
+  public void setAnimateUnfavorite(boolean animation) {
+    this.mAnimateUnfavorite = animation;
   }
 
   public void setFavoriteResource(int favoriteResource) {
