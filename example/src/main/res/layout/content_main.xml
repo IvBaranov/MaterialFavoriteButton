@@ -134,6 +134,7 @@
               app:mfb_rotation_angle="360"
               app:mfb_favorite_image="@drawable/ic_event_available_black_24dp"
               app:mfb_not_favorite_image="@drawable/ic_event_busy_black_24dp"
+              app:mfb_animate_unfavorite="true"
               app:mfb_bounce_duration="0" />
 
         </RelativeLayout>
