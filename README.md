@@ -44,7 +44,8 @@ MaterialFavoriteButton favorite = new MaterialFavoriteButton.Builder(this)
 Configure using xml attributes or setters in code:
 
 ```java
-app:mfb_animated="true"              			// default state
+app:mfb_animate_favorite="true"                 // to animate favoriting
+app:mfb_animate_unfavorite="false"              // to animate unfavoriting
 app:mfb_padding="12"             	 			// image padding
 app:mfb_favorite_image="@drawable/ic_fav"       // custom favorite resource
 app:mfb_not_favorite_image="drawable/ic_not_fav"// custom not favorite resource
@@ -104,4 +105,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-[1]: https://github.com/IvBaranov/MaterialFavoriteButton/blob/master/demo.gif
+[1]: https://cloud.githubusercontent.com/assets/6000572/10363036/ad97cfae-6dba-11e5-980a-1f5d82afd773.gif
