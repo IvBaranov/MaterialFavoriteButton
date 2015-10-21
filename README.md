@@ -3,7 +3,7 @@ Material Favorite Button
 
 Material spinning favorite/star button
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Material%20Favorite%20Button-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2612)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Material%20Favorite%20Button-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2612) [![Build Status](https://travis-ci.org/IvBaranov/MaterialFavoriteButton.svg)](https://travis-ci.org/IvBaranov/MaterialFavoriteButton)
 
 ![Demo Image][1]
 
