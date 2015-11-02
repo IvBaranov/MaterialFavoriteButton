@@ -75,6 +75,13 @@ favorite.setOnFavoriteAnimationEndListener(
         });
 ```
 
+##### Usage in RecyclerView
+To avoid triggering animation while re-rendering item view make sure you set favorite button state in `onBindViewHolder` without animation:
+
+```java
+favoriteButton.setFavorite(isFavorite(data.get(position)), false);
+```
+
 
 Developed By
 ------------
