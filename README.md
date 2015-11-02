@@ -1,5 +1,5 @@
 Material Favorite Button
-===============
+========================
 
 Material spinning favorite/star button
 
@@ -7,19 +7,11 @@ Material spinning favorite/star button
 
 ![Demo Image][1]
 
-Gradle
--------------------------
+Download
+--------
 
 ```groovy
-allprojects {
-    repositories { 
-        jcenter()
-        maven { url "https://jitpack.io" }
-    }
-}
-dependencies {
-    compile 'com.github.ivbaranov:MaterialFavoriteButton:0.1.1'
-}
+compile 'com.github.ivbaranov:MaterialFavoriteButton:0.1.1'
 ```
 
 
@@ -85,11 +77,11 @@ favorite.setOnFavoriteAnimationEndListener(
 
 
 Developed By
---------------------
+------------
 Ivan Baranov
 
 License
------------
+-------
 
 ```
 Copyright 2015 Ivan Baranov
