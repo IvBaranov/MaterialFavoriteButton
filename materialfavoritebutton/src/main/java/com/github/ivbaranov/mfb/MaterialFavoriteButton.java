@@ -401,6 +401,7 @@ public class MaterialFavoriteButton extends ImageView {
     private int mBounceDuration = DEFAULT_BOUNCE_DURATION;
     private int mColor = STYLE_WHITE;
     private int mType = STYLE_BLACK;
+    private boolean mCustomRecources = false;
 
     public Builder(Context context) {
       this.context = context;
@@ -428,11 +429,13 @@ public class MaterialFavoriteButton extends ImageView {
 
     public Builder favoriteResource(int resource) {
       this.mFavoriteResource = resource;
+      mCustomRecources = true;
       return this;
     }
 
     public Builder notFavoriteResource(int recsource) {
       this.mNotFavoriteResource = recsource;
+      mCustomRecources = true;
       return this;
     }
 
@@ -453,11 +456,13 @@ public class MaterialFavoriteButton extends ImageView {
 
     public Builder color(int color) {
       this.mColor = color;
+      mCustomRecources = false;
       return this;
     }
 
     public Builder type(int type) {
       this.mType = type;
+      mCustomRecources = false;
       return this;
     }
 
@@ -472,8 +477,10 @@ public class MaterialFavoriteButton extends ImageView {
       materialFavoriteButton.setRotationDuration(mRotationDuration);
       materialFavoriteButton.setRotationAngle(mRotationAngle);
       materialFavoriteButton.setBounceDuration(mBounceDuration);
-      materialFavoriteButton.setColor(mColor);
-      materialFavoriteButton.setType(mType);
+      if (!mCustomRecources) {
+        materialFavoriteButton.setColor(mColor);
+        materialFavoriteButton.setType(mType);
+      }
       materialFavoriteButton.setResources();
 
       return materialFavoriteButton;
