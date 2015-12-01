@@ -38,16 +38,16 @@ MaterialFavoriteButton favorite = new MaterialFavoriteButton.Builder(this)
 Configure using xml attributes or setters in code:
 
 ```java
-app:mfb_animate_favorite="true"                 // to animate favoriting
-app:mfb_animate_unfavorite="false"              // to animate unfavoriting
-app:mfb_padding="12"             	 			// image padding
-app:mfb_favorite_image="@drawable/ic_fav"       // custom favorite resource
-app:mfb_not_favorite_image="drawable/ic_not_fav"// custom not favorite resource
-app:mfb_rotation_duration="400"                 // rotation duration
-app:mfb_rotation_angle="360"   				    // rotation angle
-app:mfb_bounce_duration="300"            		// bounce duration
-app:mfb_color="black"              				// black or white default resources
-app:mfb_type="star"           					// star or heart shapes
+app:mfb_animate_favorite="true"                  // to animate favoriting
+app:mfb_animate_unfavorite="false"               // to animate unfavoriting
+app:mfb_padding="12"             	 			 // image padding
+app:mfb_favorite_image="@drawable/ic_fav"        // custom favorite resource
+app:mfb_not_favorite_image="@drawable/ic_not_fav"// custom not favorite resource
+app:mfb_rotation_duration="400"                  // rotation duration
+app:mfb_rotation_angle="360"   			 	     // rotation angle
+app:mfb_bounce_duration="300"             		 // bounce duration
+app:mfb_color="black"              		 		 // black or white default resources (enum)
+app:mfb_type="star"           			  		 // star or heart shapes (enum)
 ```
 Make sure you are using either (`mfb_favorite_image` and `mfb_not_favorite_image`) or (`mfb_color` and `mfb_type`).
 
