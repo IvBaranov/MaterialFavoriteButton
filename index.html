@@ -1,57 +1,37 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Materialfavoritebutton : Animated favorite/star button">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Materialfavoritebutton</title>
+    <meta charset="UTF-8">
+    <title>Materialfavoritebutton by IvBaranov</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
+    <section class="page-header">
+      <h1 class="project-name">Materialfavoritebutton</h1>
+      <h2 class="project-tagline">Animated favorite/star button</h2>
+      <a href="https://github.com/IvBaranov/MaterialFavoriteButton" class="btn">View on GitHub</a>
+      <a href="https://github.com/IvBaranov/MaterialFavoriteButton/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/IvBaranov/MaterialFavoriteButton/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/IvBaranov/MaterialFavoriteButton">View on GitHub</a>
-
-          <h1 id="project_title">Materialfavoritebutton</h1>
-          <h2 id="project_tagline">Animated favorite/star button</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/IvBaranov/MaterialFavoriteButton/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/IvBaranov/MaterialFavoriteButton/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
+    <section class="main-content">
+      <h1>
 <a id="material-favorite-button" class="anchor" href="#material-favorite-button" aria-hidden="true"><span class="octicon octicon-link"></span></a>Material Favorite Button</h1>
 
-<p>Material spinning favorite/star button</p>
+<p>Material spinning favorite/star/like button.</p>
 
 <p><a href="http://android-arsenal.com/details/1/2612"><img src="https://img.shields.io/badge/Android%20Arsenal-Material%20Favorite%20Button-brightgreen.svg?style=flat" alt="Android Arsenal"></a> <a href="https://travis-ci.org/IvBaranov/MaterialFavoriteButton"><img src="https://travis-ci.org/IvBaranov/MaterialFavoriteButton.svg" alt="Build Status"></a></p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/6000572/10363036/ad97cfae-6dba-11e5-980a-1f5d82afd773.gif" alt="Demo Image"></p>
 
 <h2>
-<a id="gradle" class="anchor" href="#gradle" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gradle</h2>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h2>
 
-<div class="highlight highlight-source-groovy"><pre>allprojects {
-    repositories { 
-        jcenter()
-        maven { url <span class="pl-s"><span class="pl-pds">"</span>https://jitpack.io<span class="pl-pds">"</span></span> }
-    }
-}
-dependencies {
-    compile <span class="pl-s"><span class="pl-pds">'</span>com.github.ivbaranov:MaterialFavoriteButton:0.1.1<span class="pl-pds">'</span></span>
-}</pre></div>
+<div class="highlight highlight-source-groovy"><pre>compile <span class="pl-s"><span class="pl-pds">'</span>com.github.ivbaranov:materialfavoritebutton:0.1.2<span class="pl-pds">'</span></span></pre></div>
 
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
@@ -69,16 +49,16 @@ dependencies {
 
 <p>Configure using xml attributes or setters in code:</p>
 
-<div class="highlight highlight-source-java"><pre>app<span class="pl-k">:</span>mfb_animate_favorite<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>                 <span class="pl-c">// to animate favoriting</span>
-app<span class="pl-k">:</span>mfb_animate_unfavorite<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>              <span class="pl-c">// to animate unfavoriting</span>
-app<span class="pl-k">:</span>mfb_padding<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>12<span class="pl-pds">"</span></span>                            <span class="pl-c">// image padding</span>
-app<span class="pl-k">:</span>mfb_favorite_image<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>@drawable/ic_fav<span class="pl-pds">"</span></span>       <span class="pl-c">// custom favorite resource</span>
-app<span class="pl-k">:</span>mfb_not_favorite_image<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>drawable/ic_not_fav<span class="pl-pds">"</span></span><span class="pl-c">// custom not favorite resource</span>
-app<span class="pl-k">:</span>mfb_rotation_duration<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>400<span class="pl-pds">"</span></span>                 <span class="pl-c">// rotation duration</span>
-app<span class="pl-k">:</span>mfb_rotation_angle<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>360<span class="pl-pds">"</span></span>                    <span class="pl-c">// rotation angle</span>
-app<span class="pl-k">:</span>mfb_bounce_duration<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>300<span class="pl-pds">"</span></span>                   <span class="pl-c">// bounce duration</span>
-app<span class="pl-k">:</span>mfb_color<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>black<span class="pl-pds">"</span></span>                           <span class="pl-c">// black or white default resources</span>
-app<span class="pl-k">:</span>mfb_type<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>star<span class="pl-pds">"</span></span>                             <span class="pl-c">// star or heart shapes</span></pre></div>
+<div class="highlight highlight-source-java"><pre>app<span class="pl-k">:</span>mfb_animate_favorite<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>true<span class="pl-pds">"</span></span>                  <span class="pl-c">// to animate favoriting</span>
+app<span class="pl-k">:</span>mfb_animate_unfavorite<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>               <span class="pl-c">// to animate unfavoriting</span>
+app<span class="pl-k">:</span>mfb_padding<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>12<span class="pl-pds">"</span></span>                             <span class="pl-c">// image padding</span>
+app<span class="pl-k">:</span>mfb_favorite_image<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>@drawable/ic_fav<span class="pl-pds">"</span></span>        <span class="pl-c">// custom favorite resource</span>
+app<span class="pl-k">:</span>mfb_not_favorite_image<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>@drawable/ic_not_fav<span class="pl-pds">"</span></span><span class="pl-c">// custom not favorite resource</span>
+app<span class="pl-k">:</span>mfb_rotation_duration<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>400<span class="pl-pds">"</span></span>                  <span class="pl-c">// rotation duration</span>
+app<span class="pl-k">:</span>mfb_rotation_angle<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>360<span class="pl-pds">"</span></span>                     <span class="pl-c">// rotation angle</span>
+app<span class="pl-k">:</span>mfb_bounce_duration<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>300<span class="pl-pds">"</span></span>                    <span class="pl-c">// bounce duration</span>
+app<span class="pl-k">:</span>mfb_color<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>black<span class="pl-pds">"</span></span>                            <span class="pl-c">// black or white default resources (enum)</span>
+app<span class="pl-k">:</span>mfb_type<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>star<span class="pl-pds">"</span></span>                              <span class="pl-c">// star or heart shapes (enum)</span></pre></div>
 
 <p>Make sure you are using either (<code>mfb_favorite_image</code> and <code>mfb_not_favorite_image</code>) or (<code>mfb_color</code> and <code>mfb_type</code>).</p>
 
@@ -102,6 +82,13 @@ app<span class="pl-k">:</span>mfb_type<span class="pl-k">=</span><span class="pl
           }
         });</pre></div>
 
+<h5>
+<a id="usage-in-recyclerview" class="anchor" href="#usage-in-recyclerview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage in RecyclerView</h5>
+
+<p>To avoid triggering animation while re-rendering item view make sure you set favorite button state in <code>onBindViewHolder</code> without animation:</p>
+
+<div class="highlight highlight-source-java"><pre>favoriteButton<span class="pl-k">.</span>setFavorite(isFavorite(data<span class="pl-k">.</span>get(position)), <span class="pl-c1">false</span>);</pre></div>
+
 <h2>
 <a id="developed-by" class="anchor" href="#developed-by" aria-hidden="true"><span class="octicon octicon-link"></span></a>Developed By</h2>
 
@@ -124,18 +111,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 </code></pre>
-      </section>
-    </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Materialfavoritebutton maintained by <a href="https://github.com/IvBaranov">IvBaranov</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/IvBaranov/MaterialFavoriteButton">Materialfavoritebutton</a> is maintained by <a href="https://github.com/IvBaranov">IvBaranov</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
-    </div>
 
-    
+    </section>
 
+  
   </body>
 </html>
