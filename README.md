@@ -11,7 +11,7 @@ Download
 --------
 
 ```groovy
-compile 'com.github.ivbaranov:materialfavoritebutton:0.1.2'
+compile 'com.github.ivbaranov:materialfavoritebutton:0.1.3'
 ```
 
 
@@ -48,8 +48,12 @@ app:mfb_rotation_angle="360"                     // rotation angle
 app:mfb_bounce_duration="300"                    // bounce duration
 app:mfb_color="black"                            // black or white default resources (enum)
 app:mfb_type="star"                              // star or heart shapes (enum)
+app:mfb_size="48"                                // button size
 ```
-Make sure you are using either (`mfb_favorite_image` and `mfb_not_favorite_image`) or (`mfb_color` and `mfb_type`).
+Make sure:
+ - you are using either (`mfb_favorite_image` and `mfb_not_favorite_image`) or (`mfb_color` and `mfb_type`).
+ - if you change `mfb_size` attribute you should also provide your own combination of `mfb_favorite_image` and `mfb_favorite_image` resources and `mfb_padding` attribute that will fit your new dimensions, otherwise you can get blurred icon
+
 
 Set an `OnFavoriteChangeListener` to `MaterialFavoriteButton`:
 

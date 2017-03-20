@@ -13,6 +13,12 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 
 public class MaterialFavoriteButton extends ImageView {
+  public static final int STYLE_BLACK = 0;
+  public static final int STYLE_WHITE = 1;
+  public static final int STYLE_STAR = 0;
+  public static final int STYLE_HEART = 1;
+
+  private static final int DEFAULT_BUTTON_SIZE = 48;
   private static final int DEFAULT_PADDING = 12;
   private static final boolean DEFAULT_FAVORITE = false;
   private static final boolean DEFAULT_ANIMATE_FAVORITE = true;
@@ -28,10 +34,6 @@ public class MaterialFavoriteButton extends ImageView {
   private static final int FAVORITE_HEART_BORDER_BLACK = R.drawable.ic_favorite_border_black_24dp;
   private static final int FAVORITE_HEART_WHITE = R.drawable.ic_favorite_white_24dp;
   private static final int FAVORITE_HEART_BORDER_WHITE = R.drawable.ic_favorite_border_white_24dp;
-  public static final int STYLE_BLACK = 0;
-  public static final int STYLE_WHITE = 1;
-  public static final int STYLE_STAR = 0;
-  public static final int STYLE_HEART = 1;
   private static final AccelerateInterpolator ACCELERATE_INTERPOLATOR =
       new AccelerateInterpolator();
   private static final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator(4);
@@ -78,7 +80,7 @@ public class MaterialFavoriteButton extends ImageView {
      * @param buttonView the button view whose state has changed
      * @param favorite the favorite state
      */
-    public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite);
+    void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite);
   }
 
   /**
@@ -100,7 +102,7 @@ public class MaterialFavoriteButton extends ImageView {
      * @param buttonView the button view whose animation ended
      * @param favorite the favorite state
      */
-    public void onAnimationEnd(MaterialFavoriteButton buttonView, boolean favorite);
+    void onAnimationEnd(MaterialFavoriteButton buttonView, boolean favorite);
   }
 
   /**
@@ -129,7 +131,7 @@ public class MaterialFavoriteButton extends ImageView {
    * </ul>
    */
   private void init(Context context, AttributeSet attrs) {
-    mButtonSize = Utils.dpToPx(48, getResources());
+    mButtonSize = Utils.dpToPx(DEFAULT_BUTTON_SIZE, getResources());
     mPadding = Utils.dpToPx(DEFAULT_PADDING, getResources());
     mFavorite = DEFAULT_FAVORITE;
     mAnimateFavorite = DEFAULT_ANIMATE_FAVORITE;
@@ -163,6 +165,8 @@ public class MaterialFavoriteButton extends ImageView {
     TypedArray attr = getTypedArray(context, attributeSet, R.styleable.MaterialFavoriteButton);
     if (attr != null) {
       try {
+        mButtonSize = Utils.dpToPx(
+            attr.getInt(R.styleable.MaterialFavoriteButton_mfb_size, DEFAULT_BUTTON_SIZE), getResources());
         mAnimateFavorite = attr.getBoolean(R.styleable.MaterialFavoriteButton_mfb_animate_favorite,
             mAnimateFavorite);
         mAnimateUnfavorite =
@@ -390,6 +394,7 @@ public class MaterialFavoriteButton extends ImageView {
   public static final class Builder {
     private final Context context;
 
+    private int mButtonSize = DEFAULT_BUTTON_SIZE;
     private int mPadding = DEFAULT_PADDING;
     private boolean mFavorite = DEFAULT_FAVORITE;
     private boolean mAnimateFavorite = DEFAULT_ANIMATE_FAVORITE;
@@ -405,6 +410,11 @@ public class MaterialFavoriteButton extends ImageView {
 
     public Builder(Context context) {
       this.context = context;
+    }
+
+    public Builder size(int size) {
+      this.mButtonSize = size;
+      return this;
     }
 
     public Builder padding(int padding) {
@@ -468,6 +478,7 @@ public class MaterialFavoriteButton extends ImageView {
 
     public MaterialFavoriteButton create() {
       MaterialFavoriteButton materialFavoriteButton = new MaterialFavoriteButton(context);
+      materialFavoriteButton.setSize(mButtonSize);
       materialFavoriteButton.setPadding(mPadding);
       materialFavoriteButton.setFavorite(mFavorite, false);
       materialFavoriteButton.setAnimateFavorite(mAnimateFavorite);
@@ -485,6 +496,10 @@ public class MaterialFavoriteButton extends ImageView {
 
       return materialFavoriteButton;
     }
+  }
+
+  public void setSize(int size) {
+    this.mButtonSize = Utils.dpToPx(size, getResources());
   }
 
   public void setPadding(int padding) {
