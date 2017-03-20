@@ -11,7 +11,7 @@ Download
 --------
 
 ```groovy
-compile 'com.github.ivbaranov:materialfavoritebutton:0.1.3'
+compile 'com.github.ivbaranov:materialfavoritebutton:0.1.4'
 ```
 
 
