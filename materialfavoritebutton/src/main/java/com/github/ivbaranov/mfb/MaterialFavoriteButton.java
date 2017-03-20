@@ -488,7 +488,8 @@ public class MaterialFavoriteButton extends ImageView {
   }
 
   public void setPadding(int padding) {
-    this.mPadding = padding;
+    this.mPadding = Utils.dpToPx(padding, getResources());
+    setPadding(mPadding, mPadding, mPadding, mPadding);
   }
 
   public void setAnimateFavorite(boolean animation) {
