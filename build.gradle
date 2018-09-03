@@ -1,6 +1,14 @@
+ext {
+  minSdkVersion = 14
+  minSdkVersionApp = 14
+  compileSdkVersion = 28
+  buildToolsVersion = '28'
+}
+
 buildscript {
   repositories {
     jcenter()
+    google()
   }
   dependencies {
     classpath "com.android.tools.build:gradle:$GRADLE_PLUGIN_VERSION"
@@ -11,5 +19,6 @@ buildscript {
 allprojects {
   repositories {
     jcenter()
+    google()
   }
 }
