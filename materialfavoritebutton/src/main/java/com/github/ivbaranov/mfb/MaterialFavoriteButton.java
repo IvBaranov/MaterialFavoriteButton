@@ -166,7 +166,8 @@ public class MaterialFavoriteButton extends ImageView {
     if (attr != null) {
       try {
         mButtonSize = Utils.dpToPx(
-            attr.getInt(R.styleable.MaterialFavoriteButton_mfb_size, DEFAULT_BUTTON_SIZE), getResources());
+            attr.getInt(R.styleable.MaterialFavoriteButton_mfb_size, DEFAULT_BUTTON_SIZE),
+            getResources());
         mAnimateFavorite = attr.getBoolean(R.styleable.MaterialFavoriteButton_mfb_animate_favorite,
             mAnimateFavorite);
         mAnimateUnfavorite =
@@ -248,25 +249,30 @@ public class MaterialFavoriteButton extends ImageView {
   }
 
   /**
-   * Changes the favorite state of this button.
+   * Changes the favorite state of this button without animation.
    *
    * @param favorite true to favorite the button, false to uncheck it
    */
   public void setFavorite(boolean favorite) {
-    if (mFavorite != favorite) {
-      mFavorite = favorite;
-      // Avoid infinite recursions if setChecked() is called from a listener
-      if (mBroadcasting) {
-        return;
-      }
+    updateFavoriteButton(favorite, false, false);
+  }
 
-      mBroadcasting = true;
-      if (mOnFavoriteChangeListener != null) {
-        mOnFavoriteChangeListener.onFavoriteChanged(this, mFavorite);
-      }
-      updateFavoriteButton(favorite);
-      mBroadcasting = false;
-    }
+  /**
+   * Changes the favorite state of this button with animation.
+   *
+   * @param favorite true to favorite the button, false to uncheck it
+   */
+  public void setFavoriteAnimated(boolean favorite) {
+    updateFavoriteButton(favorite, true, false);
+  }
+
+  /**
+   * Changes the favorite state of this button without calling OnFavoriteChangeListener.
+   *
+   * @param favorite true to favorite the button, false to uncheck it
+   */
+  public void setFavoriteSuppressListener(boolean favorite) {
+    updateFavoriteButton(favorite, mAnimateFavorite, true);
   }
 
   /**
@@ -275,18 +281,8 @@ public class MaterialFavoriteButton extends ImageView {
    * @param favorite true to favorite the button, false to uncheck it
    * @param animated true to force animated change, false to force not animated one
    */
-  public void setFavorite(boolean favorite, boolean animated) {
-    if (favorite) {
-      boolean orig = mAnimateFavorite;
-      mAnimateFavorite = animated;
-      setFavorite(favorite);
-      mAnimateFavorite = orig;
-    } else {
-      boolean orig = mAnimateUnfavorite;
-      mAnimateUnfavorite = animated;
-      setFavorite(favorite);
-      mAnimateUnfavorite = orig;
-    }
+  @Deprecated public void setFavorite(boolean favorite, boolean animated) {
+    updateFavoriteButton(favorite, animated, false);
   }
 
   /**
@@ -315,25 +311,38 @@ public class MaterialFavoriteButton extends ImageView {
     }
   }
 
-  private void updateFavoriteButton(boolean favorite) {
-    if (favorite) {
-      if (mAnimateFavorite) {
-        animateButton(favorite);
+  private void updateFavoriteButton(boolean favorite, boolean animate, boolean suppressOnChange) {
+    if (mFavorite != favorite) {
+      mFavorite = favorite;
+      // Avoid infinite recursions if setChecked() is called from a listener
+      if (mBroadcasting) {
+        return;
+      }
+
+      mBroadcasting = true;
+      if (mOnFavoriteChangeListener != null && !suppressOnChange) {
+        mOnFavoriteChangeListener.onFavoriteChanged(this, mFavorite);
+      }
+      if (favorite) {
+        if (animate) {
+          animateButton(favorite);
+        } else {
+          super.setImageResource(mFavoriteResource);
+          if (mOnFavoriteAnimationEndListener != null) {
+            mOnFavoriteAnimationEndListener.onAnimationEnd(this, mFavorite);
+          }
+        }
       } else {
-        super.setImageResource(mFavoriteResource);
-        if (mOnFavoriteAnimationEndListener != null) {
-          mOnFavoriteAnimationEndListener.onAnimationEnd(this, mFavorite);
+        if (animate) {
+          animateButton(favorite);
+        } else {
+          super.setImageResource(mNotFavoriteResource);
+          if (mOnFavoriteAnimationEndListener != null) {
+            mOnFavoriteAnimationEndListener.onAnimationEnd(this, mFavorite);
+          }
         }
       }
-    } else {
-      if (mAnimateUnfavorite) {
-        animateButton(favorite);
-      } else {
-        super.setImageResource(mNotFavoriteResource);
-        if (mOnFavoriteAnimationEndListener != null) {
-          mOnFavoriteAnimationEndListener.onAnimationEnd(this, mFavorite);
-        }
-      }
+      mBroadcasting = false;
     }
   }
 
