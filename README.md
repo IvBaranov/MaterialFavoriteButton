@@ -11,7 +11,7 @@ Download
 --------
 
 ```groovy
-compile 'com.github.ivbaranov:materialfavoritebutton:0.1.4'
+compile 'com.github.ivbaranov:materialfavoritebutton:0.1.5'
 ```
 
 
@@ -83,7 +83,7 @@ favorite.setOnFavoriteAnimationEndListener(
 To avoid triggering animation while re-rendering item view make sure you set favorite button state in `onBindViewHolder` without animation:
 
 ```java
-favoriteButton.setFavorite(isFavorite(data.get(position)), false);
+favoriteButton.setFavorite(isFavorite(data.get(position)));
 ```
 
 
