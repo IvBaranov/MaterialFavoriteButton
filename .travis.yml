@@ -1,5 +1,4 @@
 language: android
-jdk: oraclejdk8
 android:
   components:
     - platform-tools
@@ -8,14 +7,8 @@ android:
     - android-28
     - extra-android-support
     - extra-android-m2repository
-  licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
 
 before_script:
-    - mkdir -p "$ANDROID_HOME/licenses"
-    - cp ./google-licenses/* "$ANDROID_HOME/licenses/"
     - chmod +x gradlew
 
 script:
