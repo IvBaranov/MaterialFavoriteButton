@@ -118,6 +118,7 @@ public class MaterialFavoriteButton extends ImageView {
   /**
    * Initialize the default values
    * <ul>
+   * <li>state = false</li>
    * <li>size = 48 dp</li>
    * <li>padding = 12 dp</li>
    * <li>is mFavorite = false</li>
@@ -165,6 +166,8 @@ public class MaterialFavoriteButton extends ImageView {
     TypedArray attr = getTypedArray(context, attributeSet, R.styleable.MaterialFavoriteButton);
     if (attr != null) {
       try {
+        mFavorite =
+            attr.getBoolean(R.styleable.MaterialFavoriteButton_mfb_state, mAnimateUnfavorite);
         mButtonSize = Utils.dpToPx(
             attr.getInt(R.styleable.MaterialFavoriteButton_mfb_size, DEFAULT_BUTTON_SIZE),
             getResources());

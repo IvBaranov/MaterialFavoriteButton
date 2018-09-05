@@ -38,6 +38,7 @@ MaterialFavoriteButton favorite = new MaterialFavoriteButton.Builder(this)
 Configure using xml attributes or setters in code:
 
 ```java
+app:mfb_state="false"                            // default button state
 app:mfb_animate_favorite="true"                  // to animate favoriting
 app:mfb_animate_unfavorite="false"               // to animate unfavoriting
 app:mfb_padding="12"                             // image padding

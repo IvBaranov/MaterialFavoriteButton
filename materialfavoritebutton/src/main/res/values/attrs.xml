@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <declare-styleable name="MaterialFavoriteButton">
+    <attr name="mfb_state" format="boolean" />
     <attr name="mfb_size" format="integer" />
     <attr name="mfb_animate_favorite" format="boolean" />
     <attr name="mfb_animate_unfavorite" format="boolean" />
