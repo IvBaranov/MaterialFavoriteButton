@@ -1,5 +1,5 @@
 ext {
-  minSdkVersion = 14
+  minSdkVersion = 11
   minSdkVersionApp = 14
   compileSdkVersion = 28
   buildToolsVersion = '28'
